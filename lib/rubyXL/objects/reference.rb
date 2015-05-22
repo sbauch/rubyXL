@@ -25,6 +25,14 @@ module RubyXL
       @col_range = Range.new(col_from || 0, col_to || col_from || COL_MAX)
     end
 
+    # Move merged cells down starting from next
+    def shift_down(row_index)
+      return unless row_range.max >= row_index
+
+      new_min = row_range.min + (row_range.min >= row_index ? 1 : 0)
+      @row_range = Range.new(new_min, row_range.max + 1)
+    end
+
     def single_cell?
       (@row_range.begin == @row_range.end) && (@col_range.begin == @col_range.end)
     end

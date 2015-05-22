@@ -214,6 +214,18 @@ module LegacyWorksheet
       row.cells.each { |c| c.row = i unless c.nil? }
     }
 
+    if merged_cells
+      merged_cells.each { |cell| cell.ref.shift_down(row_index) }
+
+      # Copy merge info from the row that have been here before
+      # NOTE: Only merges that have a length of one row are copied
+      merged_cells.each do |cell|
+        if cell.ref.row_range.min == (row_index + 1) && cell.ref.row_range.min == (row_index + 1)
+          merge_cells(row_index, cell.ref.col_range.min, row_index, cell.ref.col_range.max)
+        end
+      end
+    end
+
     return new_row
   end
 
@@ -333,7 +345,7 @@ module LegacyWorksheet
     validate_nonnegative(column_index)
 
     row = sheet_data.rows[row_index] || add_row(row_index)
-  end  
+  end
 
   # Helper method to get the style index for a column
   def get_col_style(column_index)
