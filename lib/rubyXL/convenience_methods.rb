@@ -575,7 +575,7 @@ module RubyXL
   module CellConvenienceMethods
 
     def change_contents(data, formula_expression = nil)
-      validate_worksheet
+      # validate_worksheet
 
       if formula_expression then
         self.datatype = nil
