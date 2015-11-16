@@ -174,8 +174,7 @@ module LegacyWorksheet
 
     # Change cell row numbers
     row_index.upto(sheet_data.size - 1) { |index|
-      sheet_data[index].cells.each{ |c| c.row -= 1 unless c.nil? } if sheet_data[index]
-    }
+      sheet_data[index].cells.each{ |c| c.row -= 1 unless c.nil? }
 
     return deleted
   end
